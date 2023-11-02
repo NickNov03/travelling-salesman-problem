@@ -100,10 +100,6 @@ namespace travelling_salesman_problem
             return (min_i, min_j, min);
         }
 
-        private bool CreatesCycle(int v)
-        {
-            while ()
-        }
 
         public (Graph, double) Greedy()
         {
