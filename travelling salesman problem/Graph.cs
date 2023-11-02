@@ -100,18 +100,24 @@ namespace travelling_salesman_problem
             return (min_i, min_j, min);
         }
 
+        private bool CreatesCycle(int v)
+        {
+            while ()
+        }
+
         public (Graph, double) Greedy()
         {
-            double sum = 0;
+            double sum = 0; // длина цикла
             List<(double, double)> edges = new List<(double, double)>();
-            Graph Copy = new Graph(this);
-            Graph G = new Graph(this.n);
+            Graph Copy = new Graph(this); // исх граф
+            Graph G = new Graph(this.n); // новый граф
 
             for (int i = 0; i < n - 1; i++)
             {
-                (int, int, double) min = Copy.MinEdge();
-                G.AddEdge(min.Item1, min.Item2, min.Item3);
-                //if ()
+                (int, int, double) min = Copy.MinEdge(); // минимальное ребро
+                G.AddEdge(min.Item1, min.Item2, min.Item3); // добавляем его
+                
+                
             }
 
             return (G, sum);
