@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace ConsoleApp8
+namespace travelling_salesman_problem
 {
     internal class Jadina
     {
@@ -17,7 +17,7 @@ namespace ConsoleApp8
         public static void Jadin()
         {
             // Матрица расстояний между городам
-
+            Console.WriteLine("JADNIY");
             distances = new int[,] {
                     {0, 29, 20, 21},
                     {29, 0, 15, 12},
@@ -30,6 +30,9 @@ namespace ConsoleApp8
             for (int i = 0; i < numCities; i++) used.Add(0);
             Find_path(0, used);
             Console.WriteLine("Min lenght: " + Calc(path).ToString());
+            Console.Write("Min path: ");
+            Print_list(path);
+            Console.WriteLine();
         }
 
         static void Find_path(int v, List<int> used)
@@ -39,7 +42,11 @@ namespace ConsoleApp8
             used[v] = 1;
             Find_path(min_edge(v, used), used);
         }
-
+        static void Print_list(List<int> list)
+        {
+            foreach (var item in list) Console.Write(item.ToString() + ' ');
+            Console.WriteLine();
+        }
         static int min_edge(int v, List<int> used)
         {
             int min = int.MaxValue;

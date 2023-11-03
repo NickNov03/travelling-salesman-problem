@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp8
+namespace travelling_salesman_problem
 {
     class Poln_Perebor
     {
@@ -19,7 +19,7 @@ namespace ConsoleApp8
         public static void BruteForce()
         {
             // Матрица расстояний между городами
-
+            Console.WriteLine("POLNIY");
             distances = new int[,] {
             {0, 29, 20, 21},
             {29, 0, 15, 12},
@@ -34,6 +34,7 @@ namespace ConsoleApp8
             Console.WriteLine("Min lenght: {0}", minPathLength);
             Console.Write("Path: "); 
             for (int i = 0; i < numCities; i++) Console.Write(path[i].ToString() + ' ');
+            Console.WriteLine();
         }
 
         static void Rec(List<int> cities, List<int> used, List<int> inuse)
@@ -48,7 +49,6 @@ namespace ConsoleApp8
                     used[item] = 0;
                     if (inuse.Count == 4)
                     {
-                        Print_list(inuse);
                         if (Calc(inuse) < minPathLength)
                         {
                             minPathLength = Calc(inuse);

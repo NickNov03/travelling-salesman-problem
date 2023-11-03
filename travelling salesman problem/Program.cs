@@ -14,6 +14,7 @@ class Program
         Graph H = new Graph(m0);
         H.ToString();
 
-
+        Poln_Perebor.BruteForce();
+        Jadina.Jadin();
     }
 }
