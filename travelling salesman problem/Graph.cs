@@ -11,43 +11,55 @@ namespace travelling_salesman_problem
         double[,] AdjMatrix;
         int n;
 
-        public Graph(int n)
-        {
-            this.AdjMatrix = new double[n, n];
-            this.n = n;
-        }
+        //public Graph(int n)
+        //{
+        //    this.AdjMatrix = new double[n, n];
+        //    this.n = n;
+        //}
 
-        public Graph(double[,] adjMatrix) 
-        {
-            this.AdjMatrix = adjMatrix;
-            this.n = adjMatrix.GetLength(0);
-        }
+        //public Graph(double[,] adjMatrix) 
+        //{
+        //    this.AdjMatrix = adjMatrix;
+        //    this.n = adjMatrix.GetLength(0);
+        //}
 
-        public Graph(Graph G)
-        {
-            this.AdjMatrix = G.AdjMatrix;
-            this.n = G.n;
-        }
+        //public Graph(Graph G)
+        //{
+        //    this.AdjMatrix = G.AdjMatrix;
+        //    this.n = G.n;
+        //}
 
-        private void AddEdge(int v1, int v2, double weight)
-        {
-            AdjMatrix[v1, v2] = weight;
-        }
+        //private void AddEdge(int v1, int v2, double weight)
+        //{
+        //    AdjMatrix[v1, v2] = weight;
+        //}
 
-        private void RemoveEdge(int v1, int v2) 
-        {
-            AdjMatrix[v1, v2] = 0;
-        }
+        //private void RemoveEdge(int v1, int v2) 
+        //{
+        //    AdjMatrix[v1, v2] = 0;
+        //}
 
-        new public void ToString()
+        public static void ToString(double[,] matrix)
         {
-            for (int i = 0; i < n; i++) 
+            for (int i = 0; i < matrix.GetLength(0); i++)
             {
                 Console.Write("{0}: ", i);
-                for (int j = 0; j < n; j++)
+                for (int j = 0; j < matrix.GetLength(0); j++)
                 {
-                    if (!(AdjMatrix[i, j] == 0))
-                        Console.Write("{0} ({1}), ", j, AdjMatrix[i, j]);
+                    if (!(matrix[i, j] == 0))
+                        Console.Write("{0} ({1}), ", j, matrix[i, j]);
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public static void Print(double[,] matrix)
+        {
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix.GetLength(0); j++)
+                {
+                    Console.Write("{0} ", matrix[i, j]);
                 }
                 Console.WriteLine();
             }
@@ -99,25 +111,5 @@ namespace travelling_salesman_problem
             }
             return (min_i, min_j, min);
         }
-
-
-        public (Graph, double) Greedy()
-        {
-            double sum = 0; // длина цикла
-            List<(double, double)> edges = new List<(double, double)>();
-            Graph Copy = new Graph(this); // исх граф
-            Graph G = new Graph(this.n); // новый граф
-
-            for (int i = 0; i < n - 1; i++)
-            {
-                (int, int, double) min = Copy.MinEdge(); // минимальное ребро
-                G.AddEdge(min.Item1, min.Item2, min.Item3); // добавляем его
-                
-                
-            }
-
-            return (G, sum);
-        }
-
     }
 }

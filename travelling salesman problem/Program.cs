@@ -6,15 +6,23 @@ class Program
 {
     public static void Main()
     {
-        double[,] m = { { 0, 2, 3 }, { 2, 0, 4 }, { 3, 4, 0 }, };
-        Graph G = new Graph(m);
-        G.ToString();
+        int n = 12;
+        double maxLen = 50;
+        Console.WriteLine("Вершин: {0}\nМаксимальная длина ребра: {1}", n, maxLen);
+        DateTime now0, now1;
+        double[,] m = Graph.GenerateCompleteEuclideanGraph(n, maxLen);
+        //Graph.Print(m);
 
-        double[,] m0 = Graph.GenerateCompleteEuclideanGraph(4, 50);
-        Graph H = new Graph(m0);
-        H.ToString();
+        now0 = DateTime.Now;
+        Jadina.Jadin(m);
+        now1 = DateTime.Now;
+        Console.WriteLine("Жадный: {0}", now1 - now0);
+        Console.WriteLine();
 
-        Poln_Perebor.BruteForce();
-        Jadina.Jadin();
+        now0 = DateTime.Now;
+        Poln_Perebor.BruteForce(m);
+        now1 = DateTime.Now;
+        Console.WriteLine("Полный перебор: {0}", now1 - now0);
+        Console.WriteLine();
     }
 }

@@ -11,20 +11,16 @@ namespace travelling_salesman_problem
     class Poln_Perebor
     {
         static int[] path;       // Путь коммивояжера
-        static int minPathLength = int.MaxValue; // Длина оптимального пути
+        static double minPathLength = double.MaxValue; // Длина оптимального пути
         static int numCities;
-        static int[,] distances;
+        static double[,] distances;
 
         // BruteForce Traveling Salesman Problem
-        public static void BruteForce()
+        public static void BruteForce(double[,] dist)
         {
             // Матрица расстояний между городами
             Console.WriteLine("POLNIY");
-            distances = new int[,] {
-            {0, 29, 20, 21},
-            {29, 0, 15, 12},
-            {20, 15, 0, 13},
-            {21, 12, 13, 0}};
+            distances = dist;
 
             numCities = distances.GetLength(0);
             List<int> cities = Enumerable.Range(0, numCities).ToList();
@@ -47,7 +43,7 @@ namespace travelling_salesman_problem
                     used[item] = 1;
                     Rec(New_city(used), used, inuse);
                     used[item] = 0;
-                    if (inuse.Count == 4)
+                    if (inuse.Count == numCities)
                     {
                         if (Calc(inuse) < minPathLength)
                         {
@@ -71,9 +67,9 @@ namespace travelling_salesman_problem
             }
             return new_cities;
         }
-        static int Calc(List<int> list)
+        static double Calc(List<int> list)
         {
-            int path_cost = 0; int t = -1;
+            double path_cost = 0; int t = -1;
             foreach (var item in list)
             {
                 if (t >= 0)

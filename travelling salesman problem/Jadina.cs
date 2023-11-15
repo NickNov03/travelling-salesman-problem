@@ -10,19 +10,15 @@ namespace travelling_salesman_problem
     internal class Jadina
     {
         static List<int> path = new List<int>();       // Путь коммив
-        static int minPathLength = 0;
+        static double minPathLength = 0;
         static int numCities;
-        static int[,] distances;
+        static double[,] distances;
 
-        public static void Jadin()
+        public static void Jadin(double[,] dist)
         {
             // Матрица расстояний между городам
             Console.WriteLine("JADNIY");
-            distances = new int[,] {
-                    {0, 29, 20, 21},
-                    {29, 0, 15, 12},
-                    {20, 15, 0, 13},
-                    {21, 12, 13, 0}};
+            distances = dist;
 
             numCities = distances.GetLength(0);
             List<int> cities = Enumerable.Range(0, numCities).ToList();
@@ -49,7 +45,7 @@ namespace travelling_salesman_problem
         }
         static int min_edge(int v, List<int> used)
         {
-            int min = int.MaxValue;
+            double min = double.MaxValue;
             int u = -1;
             for (int i = 0; i < numCities; i++)
             {
@@ -62,10 +58,10 @@ namespace travelling_salesman_problem
             minPathLength += min;
             return u;
         }
-        static int Calc(List<int> list)
+        static double Calc(List<int> list)
         {
-            int path_cost = 0; int t = -1;
-            foreach (var item in list)
+            double path_cost = 0; int t = -1;
+            foreach (int item in list)
             {
                 if (t >= 0)
                 {
