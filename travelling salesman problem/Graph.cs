@@ -8,48 +8,23 @@ namespace travelling_salesman_problem
 {
     internal class Graph
     {
-        double[,] AdjMatrix;
-        int n;
-
-        //public Graph(int n)
-        //{
-        //    this.AdjMatrix = new double[n, n];
-        //    this.n = n;
-        //}
-
-        //public Graph(double[,] adjMatrix) 
-        //{
-        //    this.AdjMatrix = adjMatrix;
-        //    this.n = adjMatrix.GetLength(0);
-        //}
-
-        //public Graph(Graph G)
-        //{
-        //    this.AdjMatrix = G.AdjMatrix;
-        //    this.n = G.n;
-        //}
-
-        //private void AddEdge(int v1, int v2, double weight)
-        //{
-        //    AdjMatrix[v1, v2] = weight;
-        //}
-
-        //private void RemoveEdge(int v1, int v2) 
-        //{
-        //    AdjMatrix[v1, v2] = 0;
-        //}
-
-        public static void ToString(double[,] matrix)
+        public static void Test(double[,] m, int[] n, double[] maxLen)
         {
-            for (int i = 0; i < matrix.GetLength(0); i++)
+            DateTime now0, now1;
+            TimeSpan diff, total;
+            
+            for (int i = 0; i < n.Length; i++)
             {
-                Console.Write("{0}: ", i);
-                for (int j = 0; j < matrix.GetLength(0); j++)
+                m = Graph.GenerateCompleteEuclideanGraph(n[i], maxLen[i]);
+                Console.WriteLine("Вершин: {0}\nМаксимальная длина ребра: {1}", n[i], maxLen[i]);
+                for (int j = 0; j < 50; j++)
                 {
-                    if (!(matrix[i, j] == 0))
-                        Console.Write("{0} ({1}), ", j, matrix[i, j]);
+                    now0 = DateTime.Now;
+                    Jadina.Jadin(m);
+                    now1 = DateTime.Now;
+                    diff = now1 - now0;
+                    Console.WriteLine(diff.ToString());
                 }
-                Console.WriteLine();
             }
         }
 
@@ -91,25 +66,6 @@ namespace travelling_salesman_problem
             }
 
             return matrix;
-        }
-
-        private (int, int, double) MinEdge()
-        {
-            double min = double.MaxValue;
-            int min_i = 0, min_j = 0;
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j <= i; j++)
-                {
-                    if (AdjMatrix[i,j] < min)
-                    {
-                        min = AdjMatrix[i,j];
-                        min_i = i;
-                        min_j = j;
-                    }
-                }
-            }
-            return (min_i, min_j, min);
         }
     }
 }
