@@ -29,7 +29,7 @@ class Program
 
         int[] tests_n = { 5, 8, 8, 10, 11, 11 };
         double[] tests_ML = { 100, 100, 100000, 1000, 100, 100000 };
-        Graph.Test(m, tests_n, tests_ML);
+        Graph.Test(tests_n, tests_ML);
 
     }
 }

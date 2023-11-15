@@ -8,16 +8,16 @@ namespace travelling_salesman_problem
 {
     internal class Graph
     {
-        public static void Test(double[,] m, int[] n, double[] maxLen)
+        public static void Test(int[] n, double[] maxLen)
         {
             DateTime now0, now1;
             TimeSpan diff, total;
             
             for (int i = 0; i < n.Length; i++)
             {
-                m = Graph.GenerateCompleteEuclideanGraph(n[i], maxLen[i]);
+                double[,] m = Graph.GenerateCompleteEuclideanGraph(n[i], maxLen[i]);
                 Console.WriteLine("Вершин: {0}\nМаксимальная длина ребра: {1}", n[i], maxLen[i]);
-                for (int j = 0; j < 50; j++)
+                for (int j = 0; j < 1; j++)
                 {
                     now0 = DateTime.Now;
                     Jadina.Jadin(m);
