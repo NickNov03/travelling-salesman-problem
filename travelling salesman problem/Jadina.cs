@@ -9,7 +9,7 @@ namespace travelling_salesman_problem
 {
     internal class Jadina
     {
-        static List<int> path = new List<int>();       // Путь коммив
+        static List<int> path;       // Путь коммив
         static double minPathLength = 0;
         static int numCities;
         static double[,] distances;
@@ -20,6 +20,7 @@ namespace travelling_salesman_problem
             Console.WriteLine("JADNIY");
             distances = dist;
 
+            path = new List<int>();
             numCities = distances.GetLength(0);
             List<int> cities = Enumerable.Range(0, numCities).ToList();
             List<int> used = new List<int>(numCities);
