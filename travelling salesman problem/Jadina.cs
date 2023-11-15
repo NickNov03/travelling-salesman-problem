@@ -38,6 +38,7 @@ namespace travelling_salesman_problem
             used[v] = 1;
             Find_path(min_edge(v, used), used);
         }
+
         static void Print_list(List<int> list)
         {
             foreach (var item in list) Console.Write(item.ToString() + ' ');

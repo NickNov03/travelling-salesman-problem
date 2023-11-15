@@ -59,7 +59,7 @@ namespace travelling_salesman_problem
             {
                 for (int j = 0; j < matrix.GetLength(0); j++)
                 {
-                    Console.Write("{0} ", matrix[i, j]);
+                    Console.Write("{0,2:f8} ", matrix[i, j]);
                 }
                 Console.WriteLine();
             }
