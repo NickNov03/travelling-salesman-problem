@@ -19,7 +19,7 @@ namespace travelling_salesman_problem
         public static void BruteForce(double[,] dist)
         {
             // Матрица расстояний между городами
-            Console.WriteLine("POLNIY");
+            Console.WriteLine("\nPOLNIY");
             distances = dist;
 
             numCities = distances.GetLength(0);

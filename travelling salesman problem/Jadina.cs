@@ -28,7 +28,6 @@ namespace travelling_salesman_problem
             Console.WriteLine("Min lenght: " + Calc(path).ToString());
             Console.Write("Min path: ");
             Print_list(path);
-            Console.WriteLine();
         }
 
         static void Find_path(int v, List<int> used)
