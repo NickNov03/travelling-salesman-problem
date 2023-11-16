@@ -16,21 +16,27 @@ namespace travelling_salesman_problem
         static double[,] distances;
 
         // BruteForce Traveling Salesman Problem
-        public static void BruteForce(double[,] dist)
+        public static double BruteForce(double[,] dist)
         {
             // Матрица расстояний между городами
             Console.WriteLine("\nPOLNIY");
             distances = dist;
 
+            List<int> cities = new List<int>();
+            List<int> used = new List<int>();
+            path = new int[numCities];
+            minPathLength = double.MaxValue;
+
             numCities = distances.GetLength(0);
-            List<int> cities = Enumerable.Range(0, numCities).ToList();
-            List<int> used = new List<int>(numCities);
+            cities = Enumerable.Range(0, numCities).ToList();
+            used = new List<int>(numCities);
             for (int i = 0; i < numCities; i++) used.Add(0);
             Rec(cities, used, new List<int>());
             Console.WriteLine("Min lenght: {0}", minPathLength);
             Console.Write("Path: "); 
             for (int i = 0; i < numCities; i++) Console.Write(path[i].ToString() + ' ');
             Console.WriteLine();
+            return minPathLength;
         }
 
         static void Rec(List<int> cities, List<int> used, List<int> inuse)

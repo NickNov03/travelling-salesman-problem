@@ -104,7 +104,7 @@ namespace travelling_salesman_problem
                 }
             }
         }
-        public static void Kristofid(double[,] dist)
+        public static double Kristofid(double[,] dist)
         {
             List<Edge> minOstTree = Krascal(dist);
             bool[] visited = new bool[dist.GetLength(1)];
@@ -112,7 +112,9 @@ namespace travelling_salesman_problem
             DFS(minOstTree, minOstTree.First().v1, visited, ref path);
             Console.Write("Kristofides\nMin path: ");
             Print_list(path);
-            Console.WriteLine("Min lenght: {0}", Calc(path, dist));
+            double minLength = Calc(path, dist);
+            Console.WriteLine("Min lenght: {0}", minLength);
+            return minLength;
         }
         static double Calc(List<int> list, double[,] distances)
         {

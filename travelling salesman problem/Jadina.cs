@@ -14,21 +14,24 @@ namespace travelling_salesman_problem
         static int numCities;
         static double[,] distances;
 
-        public static void Jadin(double[,] dist)
+        public static double Jadin(double[,] dist)
         {
             // Матрица расстояний между городам
             Console.WriteLine("JADNIY");
             distances = dist;
 
+            minPathLength = 0;
             path = new List<int>();
             numCities = distances.GetLength(0);
             List<int> cities = Enumerable.Range(0, numCities).ToList();
             List<int> used = new List<int>(numCities);
             for (int i = 0; i < numCities; i++) used.Add(0);
             Find_path(0, used);
-            Console.WriteLine("Min lenght: " + Calc(path).ToString());
+            minPathLength = Calc(path);
+            Console.WriteLine("Min lenght: " + minPathLength.ToString());
             Console.Write("Min path: ");
             Print_list(path);
+            return minPathLength;
         }
 
         static void Find_path(int v, List<int> used)

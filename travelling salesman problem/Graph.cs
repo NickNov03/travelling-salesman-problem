@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace travelling_salesman_problem
 {
@@ -10,22 +12,118 @@ namespace travelling_salesman_problem
     {
         public static void Test(int[] n, double[] maxLen)
         {
-            DateTime now0, now1;
-            TimeSpan diff, total;
+            string path = "test.txt";
             
+            int iter = 50;
+
+            double[] res_G, res_P, res_K;
+            double error_G = 0, error_K = 0;
+
+            TimeSpan diff, totalPoln = TimeSpan.Zero,
+                totalGreedy = TimeSpan.Zero, totalJesus = TimeSpan.Zero;
+
+            using (StreamWriter writer = new StreamWriter(path, false))
+            {
+                res_G = Test_Greedy(n, maxLen, iter, writer);
+                writer.Write("\n");
+                res_P = Test_Poln(n, maxLen, iter, writer);
+                writer.Write("\n");
+                res_K = Test_Jesus(n, maxLen, iter, writer);
+                writer.Write("\n");
+
+                for (int i = 0; i < n.Length; i++)
+                {
+                    error_G += (res_G[i] - res_P[i]) / res_P[i];
+                    error_K += (res_K[i] - res_P[i]) / res_P[i];
+                }
+                error_G /= n.Length;
+                error_K /= n.Length;
+
+                writer.WriteLine("Среднее отклонение жадного алгоритма: {0}", error_G);
+                writer.WriteLine("Среднее отклонение алгоритма Кристофидеса: {0}", error_K);
+            }
+        }
+
+        public static double[] Test_Greedy(int[] n, double[] maxLen, int iter, StreamWriter writer)
+        {
+            DateTime now0, now1;
+            TimeSpan diff, total = TimeSpan.Zero;
+            double[] res = new double[n.Length];
+
+            writer.WriteLine("Жадный алгоритм:");
+            writer.WriteLine("Итераций: {0}", iter);
             for (int i = 0; i < n.Length; i++)
             {
                 double[,] m = Graph.GenerateCompleteEuclideanGraph(n[i], maxLen[i]);
                 Console.WriteLine("Вершин: {0}\nМаксимальная длина ребра: {1}", n[i], maxLen[i]);
-                for (int j = 0; j < 1; j++)
+                for (int j = 0; j < iter; j++)
                 {
                     now0 = DateTime.Now;
-                    Jadina.Jadin(m);
+                    res[i] = Jadina.Jadin(m);
                     now1 = DateTime.Now;
                     diff = now1 - now0;
-                    Console.WriteLine(diff.ToString());
+                    total += diff;
+
                 }
+                total /= iter;
+                writer.Write("Вершин: {0}, Макс длина ребра: {1}, Время: ", n[i], maxLen[i]);
+                writer.WriteLine(total);
             }
+            return res;
+        }
+
+        public static double[] Test_Poln(int[] n, double[] maxLen, int iter, StreamWriter writer)
+        {
+            writer.WriteLine("Переборный алгоритм:");
+            writer.WriteLine("Итераций: {0}", iter);
+            DateTime now0, now1;
+            TimeSpan diff, total = TimeSpan.Zero;
+            double[] res = new double[n.Length];
+            for (int i = 0; i < n.Length; i++)
+            {
+                double[,] m = Graph.GenerateCompleteEuclideanGraph(n[i], maxLen[i]);
+                Console.WriteLine("Вершин: {0}\nМаксимальная длина ребра: {1}", n[i], maxLen[i]);
+                for (int j = 0; j < iter; j++)
+                {
+                    now0 = DateTime.Now;
+                    res[i] = Poln_Perebor.BruteForce(m);
+                    now1 = DateTime.Now;
+                    diff = now1 - now0;
+                    total += diff;
+
+                }
+                total /= iter;
+                writer.Write("Вершин: {0}, Макс длина ребра: {1}, Время: ", n[i], maxLen[i]);
+                writer.WriteLine(total);
+            }
+            return res;
+        }
+
+        public static double[] Test_Jesus(int[] n, double[] maxLen, int iter, StreamWriter writer)
+        {
+            writer.WriteLine("Алгоритм Кристофидеса:");
+            writer.WriteLine("Итераций: {0}", iter);
+            DateTime now0, now1;
+            TimeSpan diff, total = TimeSpan.Zero;
+            double[] res = new double[n.Length];
+            for (int i = 0; i < n.Length; i++)
+            {
+                double[,] m = Graph.GenerateCompleteEuclideanGraph(n[i], maxLen[i]);
+                Console.WriteLine("Вершин: {0}\nМаксимальная длина ребра: {1}", n[i], maxLen[i]);
+                for (int j = 0; j < iter; j++)
+                {
+                    now0 = DateTime.Now;
+                    res[i] = Kristofides.Kristofid(m);
+                    now1 = DateTime.Now;
+                    diff = now1 - now0;
+                    total += diff;
+
+                }
+                total /= iter;
+                writer.Write("Вершин: {0}, Макс длина ребра: {1}, Время: ", n[i], maxLen[i]);
+                writer.WriteLine(total);
+            }
+            return res;
         }
 
         public static void Print(double[,] matrix)
