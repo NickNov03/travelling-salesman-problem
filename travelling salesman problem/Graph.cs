@@ -10,6 +10,34 @@ namespace travelling_salesman_problem
 {
     internal class Graph
     {
+        public static void aprox_koef_poln()
+        {
+            double k = 0;
+            for (int i = 4; i < 12; i++)
+            {
+                
+                double[,] m1 = Graph.GenerateCompleteEuclideanGraph(i - 1, 100);
+                double[,] m2 = Graph.GenerateCompleteEuclideanGraph(i, 100);
+                k += Poln_Perebor.BruteForce(m2) / Poln_Perebor.BruteForce(m1);
+            }
+            k /= 9;
+            Console.WriteLine(k);
+        }
+
+        public static void aprox_koef_Jesus()
+        {
+            double k = 0;
+            for (int i = 4; i < 12; i++)
+            {
+
+                double[,] m1 = Graph.GenerateCompleteEuclideanGraph(i - 1, 100);
+                double[,] m2 = Graph.GenerateCompleteEuclideanGraph(i, 100);
+                k += Kristofides.Kristofid(m2) / Kristofides.Kristofid(m1);
+            }
+            k /= 9;
+            Console.WriteLine(k);
+        }
+
         public static void Test(int[] n, double[] maxLen)
         {
             string path = "test.txt";
